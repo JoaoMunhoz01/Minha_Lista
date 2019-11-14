@@ -84,6 +84,37 @@ public class ColecaoDoJoao<T> {
         }
     }
 
+    public boolean buscaElemento(T element) {
+
+		Node<T> nozinho = inicio;
+		while (nozinho != null) {
+			if (nozinho.getData().equals(element)) {
+
+				return true;
+			}
+			nozinho = nozinho.getNext();
+		}
+		return false;
+	}
+
+	public Node<T> buscaElemento(int index) {
+
+		Node<T> nozinho = inicio;
+		if (index > quantidade) {
+			return null;
+		} else {
+			for (int i = 0; i <= index; i++) {
+				if (i == index) {
+
+					return nozinho;
+				}
+				nozinho = nozinho.getNext();
+			}
+			return null;
+
+		}
+	}
+
     public boolean removerInicio() {
         Node<T> nozinho = this.inicio.getNext();
 
