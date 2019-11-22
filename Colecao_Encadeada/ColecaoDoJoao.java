@@ -1,90 +1,119 @@
-
 public class ColecaoDoJoao<T> {
 
-    private Node<T> inicio;
-    private int quantidade;
-    private Node<T> tail;
+	private Node<T> inicio;
+	private int quantidade;
+	private Node<T> tail;
 
-    public ColecaoDoJoao() {
-        this.quantidade = 0;
-        this.inicio = null;
-        this.tail = null;
-    }
+	public ColecaoDoJoao() {
+		this.quantidade = 0;
+		this.inicio = null;
+		this.tail = null;
+	}
 
-    public Node<T> getInicio() {
-        return inicio;
-    }
+	public Node<T> getInicio() {
+		return inicio;
+	}
 
-    public void setInicio(Node<T> inicio) {
-        this.inicio = inicio;
-    }
+	public void setInicio(Node<T> inicio) {
+		this.inicio = inicio;
+	}
 
-    public int getQuantidade() {
-        return this.quantidade;
-    }
+	public int getQuantidade() {
+		return this.quantidade;
+	}
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 
-    public Node<T> getTail() {
-        return this.tail;
-    }
+	public Node<T> getTail() {
+		return this.tail;
+	}
 
-    public void setTail(Node<T> tail) {
-        this.tail = tail;
-    }
+	public void setTail(Node<T> tail) {
+		this.tail = tail;
+	}
 
-    public boolean inserirInicio(T element) {
+	public boolean inserirInicio(T element) {
 
-        Node<T> nozinho = new Node<T>(element);
+		Node<T> nozinho = new Node<T>(element);
 
-        if (this.quantidade == 0) {
-            this.inicio = nozinho;
-            this.tail = nozinho;
-            this.quantidade = this.quantidade + 1;
-            return true;
-        } else {
-            nozinho.setNext(this.inicio);
-            this.inicio = nozinho;
-            this.quantidade = this.quantidade + 1;
-            return true;
-        }
+		if (this.quantidade == 0) {
+			this.inicio = nozinho;
+			this.tail = nozinho;
+			this.quantidade = this.quantidade + 1;
+			return true;
+		} else {
+			nozinho.setNext(this.inicio);
+			this.inicio = nozinho;
+			this.quantidade = this.quantidade + 1;
+			return true;
+		}
 
-    }
+	}
 
-    public Node<T> buscaNo(T element) {
+	public Node<T> buscaNo(T element) {
 
-        Node<T> nozinho = inicio;
-        while (nozinho != null) {
-            if (nozinho.getData().equals(element)) {
+		Node<T> nozinho = inicio;
+		while (nozinho != null) {
+			if (nozinho.getData().equals(element)) {
 
-                return nozinho;
-            }
-            nozinho = nozinho.getNext();
-        }
-        return null;
-    }
+				return nozinho;
+			}
+			nozinho = nozinho.getNext();
+		}
+		return null;
+	}
+	
+	public int buscaIndex(T element) {
 
-    public Node<T> buscaNo(int index) {
+		Node<T> nozinho = inicio;
+		int contador = 0;
+		while (nozinho != null) {
+			if (nozinho.getData().equals(element)) {
 
-        Node<T> nozinho = inicio;
-        if (index > quantidade) {
-            return null;
-        } else {
-            for (int i = 0; i <= index; i++) {
-                if (i == index) {
+				return contador;
+			}
+			nozinho = nozinho.getNext();
+			contador++;
+		}
+		return -1;
+	} 
+	
+	public int buscaIndexObject(Object element) {
 
-                    return nozinho;
-                }
-                nozinho = nozinho.getNext();
-            }
-            return null;
+		Node<T> nozinho = inicio;
+		int contador = 0;
+		while (nozinho != null) {
+			if (nozinho.getData().equals(element)) {
 
-        }
-    }
+				return contador;
+			}
+			nozinho = nozinho.getNext();
+			contador++;
+		}
+		return -1;
+	}
 
-    public boolean buscaElemento(T element) {
+	public Node<T> buscaNo(int index) {
+
+		Node<T> nozinho = inicio;
+		if (index > quantidade) {
+			return null;
+		} else {
+			for (int i = 0; i <= index; i++) {
+				if (i == index) {
+
+					return nozinho;
+				}
+				nozinho = nozinho.getNext();
+			}
+			return null;
+
+		}
+	}
+	
+	public boolean buscaElemento(T element) {
 
 		Node<T> nozinho = inicio;
 		while (nozinho != null) {
@@ -115,57 +144,109 @@ public class ColecaoDoJoao<T> {
 		}
 	}
 
-    public boolean removerInicio() {
-        Node<T> nozinho = this.inicio.getNext();
+	public boolean removerInicio() {
+		Node<T> nozinho = this.inicio.getNext();
 
-        if (this.quantidade == 1) {
-            this.inicio = null;
-            this.tail = null;
-            this.quantidade--;
+		if (this.quantidade == 1) {
+			this.inicio = null;
+			this.tail = null;
+			this.quantidade--;
 
-            if (inicio == null) {
-                return true;
-            }
-            return false;
+			if (inicio == null) {
+				return true;
+			}
+			return false;
+			
+		} else {
+			
+			this.inicio = inicio.getNext();
+			if (nozinho.equals(inicio)) {
+				quantidade = quantidade - 1;
+				return true;
 
-        } else {
+			}
+			return false;
+		}
+	}
 
-            this.inicio = inicio.getNext();
-            if (nozinho.equals(inicio)) {
-                quantidade = quantidade - 1;
-                return true;
+	public boolean inserirFim(T element) {
 
-            }
-            return false;
-        }
-    }
+		if (inicio == null) {
+			inserirInicio(element);
 
-    public boolean inserirFim(T element) {
+			if (inicio.equals(element)) {
+				return true;
+			}
+			return false;
+		} else {
 
-        if (inicio == null) {
-            inserirInicio(element);
+			Node<T> nozinho = new Node<T>(element);
+			this.tail.setNext(nozinho);
+			this.tail = nozinho;
+			if (this.tail.getNext() == null) {
+				quantidade++;
+				return true;
+			}
+			return false;
+		}
 
-            if (inicio.equals(element)) {
-                return true;
-            }
-            return false;
-        } else {
+	}
+	public boolean removeIndex(int i) {
+		Node<T> nozinho = this.inicio;
 
-            Node<T> nozinho = new Node<T>(element);
-            this.tail.setNext(nozinho);
-            this.tail = nozinho;
-            if (this.tail.getNext() == null) {
-                quantidade++;
-                return true;
-            }
-            return false;
-        }
+		if (this.quantidade <= 1) {
+			this.inicio = null;
+			this.tail = null;
+			this.quantidade--;
 
-    }
+			if (inicio == null) {
+				return true;
+			}
+			return false;
+			
+		} else {
+			int contador = 0;
+			while(contador < i ) {
+				nozinho = nozinho.getNext();
+			}
+			nozinho.setNext(nozinho.getNext().getNext());
+			return true;
+			
+			
+		}
+	}
+	public boolean removerFim() {
+		Node<T> nozinho = this.inicio;
 
-    @Override
-    public String toString() {
-        return "ColecaoEncadeada [inicio=" + inicio + ", quantidade=" + quantidade + "]";
-    }
+		if (this.quantidade <= 1) {
+			this.inicio = null;
+			this.tail = null;
+			this.quantidade--;
+
+			if (inicio == null) {
+				return true;
+			}
+			return false;
+			
+		} else {
+			while(nozinho.getNext()!=tail) {
+				nozinho = nozinho.getNext();
+			}
+			nozinho.setNext(nozinho.getNext().getNext());
+			return true;
+			
+			
+		}
+	}
+	public void clear() {
+		inicio = null;
+		tail = null;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "ColecaoEncadeada [inicio=" + inicio + ", quantidade=" + quantidade + "]";
+	}
 
 }
